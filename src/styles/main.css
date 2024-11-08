@@ -5,7 +5,7 @@ body {
   min-height: 100vh;
   background-color: #fff3e0;
   user-select: none;
-  background-image: url("/src/images/animals.jpg");
+  background-image: url("../images/animals.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
