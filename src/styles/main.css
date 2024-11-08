@@ -1,0 +1,122 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff3e0;
+  user-select: none;
+  background-image: url("/src/images/animals.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative; /* Necessário para o ::after */
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit; /* Herda a imagem de fundo do body */
+  background-size: inherit;
+  background-position: inherit;
+  background-attachment: inherit;
+  filter: blur(3px); /* Aplica o desfoque ao fundo */
+  z-index: -1; /* Coloca o fundo desfocado atrás do conteúdo */
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 40px 60px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Fundo semi-transparente */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
+  z-index: 1; /* Garante que o container fique acima do fundo desfocado */
+}
+
+h2 {
+  font-size: 3rem;
+  color: #6d4c41;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+.reset {
+  padding: 15px 20px;
+  width: 100%;
+  color: #fff;
+  background-color: #ff7043;
+  border: none;
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+  border-radius: 2px;
+}
+
+.reset:hover {
+  background-color: #ff8a65;
+}
+
+.game {
+  width: 430px;
+  height: 430px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  transform-style: preserve-3d;
+  perspective: 500px;
+}
+
+.item {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #aed581;
+  font-size: 3em;
+  transform: rotateY(180deg);
+  transition: 0.25s;
+}
+
+.item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #ffcc80;
+  transition: 0.25s;
+  transform: rotateY(0deg);
+  backface-visibility: hidden;
+}
+
+.item.open {
+  transform: rotateY(0deg);
+}
+
+.item.open::after {
+  transform: rotateY(180deg);
+}
+
+.match {
+  background: #ffd54f;
+  color: #fff;
+  pointer-events: none;
+  transform: rotateY(0deg);
+}
+
+.match::after {
+  transform: rotateY(180deg);
+}
