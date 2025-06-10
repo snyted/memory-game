@@ -1,38 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&display=swap');
+
+:root {
+    --color-sky-blue-bg: #E0F7FA;
+    --color-sandy-peach: #FFCC80;
+    --color-tropical-mint: #A5D6A7;
+    --color-card-lemon: #FFFACD;
+    --color-ocean-baby-blue: #90CAF9;
+    --color-dark-brown-text: #5D4037;
+    --color-button-orange: #FFAB40;
+    --color-match-success-green: #81C784;
+    --color-border-dark: #4E342E;
+
+    --num-columns: 4;
+    --num-rows: 4;
+    --gap-size-desktop: 18px;
+    --gap-size-tablet: 14px;
+    --gap-size-mobile: 10px;
+}
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #F8F5E9;
+    background-color: var(--color-sky-blue-bg);
     user-select: none;
-    background-image: url("../images/animals.png");
+    background-image: linear-gradient(to bottom, var(--color-sky-blue-bg) 0%, #B3E5FC 100%);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     position: relative;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow: hidden; /* Garantindo que não haja barras de rolagem aqui */
+}
+
+body::before, body::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Altura maior para simular a ilha */
+    height: 350px; /* Aumentado de 100px para 350px */
+    background-color: var(--color-sandy-peach);
+    border-top-left-radius: 50% 100px;
+    border-top-right-radius: 50% 100px;
+    z-index: -1;
+    /* TranslateY ajustado para mostrar mais da ilha */
+    transform: translateY(20%); /* Ajustado para mover menos para baixo */
+    opacity: 0.9; /* Aumentar opacidade para mais visibilidade */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15); /* Adicionar sombra para profundidade */
 }
 
 body::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: inherit;
-    background-size: inherit;
-    background-position: inherit;
-    background-attachment: inherit;
-    filter: blur(8px);
-    z-index: -1;
-    background-color: rgba(255, 255, 255, 0.3);
-    background-blend-mode: screen;
+    background-color: var(--color-tropical-mint);
+    /* TranslateY ajustado para segunda camada */
+    transform: translateY(10%) scaleX(1.1); /* Ajustado para mover menos para baixo e escalar */
+    opacity: 0.7; /* Opacidade ligeiramente menor para efeito de camada */
+    height: 400px; /* Um pouco mais alto para criar camadas */
+    border-top-left-radius: 60% 150px;
+    border-top-right-radius: 40% 150px;
+    z-index: -2; /* Fica atrás da primeira camada */
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1); /* Sombra mais sutil para a camada de trás */
 }
 
 .container {
@@ -41,103 +72,132 @@ body::after {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 25px;
-    padding: 35px 50px;
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    gap: 35px;
+    padding: 50px 70px;
+    border-radius: 50px;
+    background-color: var(--color-sandy-peach);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2), inset 0 5px 15px rgba(255, 255, 255, 0.6);
     z-index: 1;
-    max-width: 95%; 
-    width: 520px; 
+    max-width: 800px;
+    width: 90%;
     box-sizing: border-box;
-    border: 3px solid #FFD180;
+    overflow: hidden; /* Manter aqui para o container, caso ele tenha conteúdo interno que transborde */
+    border: 5px solid var(--color-border-dark);
+    flex-shrink: 0; /* Impede que o container encolha além do necessário em telas menores */
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 30px;
+    background-color: var(--color-tropical-mint);
+    border-radius: 0 0 100% 100%;
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 h2 {
-    font-size: 2.8rem;
-    color: #4CAF50;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 4.5rem;
+    color: var(--color-dark-brown-text);
     text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.15em;
     text-align: center;
-    line-height: 1.2em;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+    line-height: 1.1em;
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15), 5px 5px 0px rgba(255, 255, 255, 0.25);
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(to right, #FFD180, #FFE082);
+    border-radius: 15px;
+    border: 3px dashed var(--color-border-dark);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    white-space: nowrap;
+    box-sizing: border-box;
 }
 
 .reset {
-    padding: 12px 25px;
-    width: 100%;
-    color: #fff;
-    background-color: #FF7043;
-    border: none;
-    font-size: 1.4em;
-    letter-spacing: 0.08em;
+    padding: 18px 40px;
+    width: 80%;
+    max-width: 300px;
+    color: #FFF;
+    background: linear-gradient(to right, var(--color-button-orange), #FFD54F);
+    border: 5px solid var(--color-border-dark);
+    font-size: 1.8em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease-out;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 .reset:hover {
-    background-color: #FF8A65;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    transform: translateY(-3px);
+    background: linear-gradient(to right, #FFD54F, var(--color-button-orange));
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(-5px) scale(1.02);
+}
+
+.reset:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .game {
-    --num-columns: 4;
-    --num-rows: 4;
-    --gap-size: 12px;
-
-    width: 100%; 
-    height: auto; 
+    width: 100%;
+    height: auto;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--gap-size);
+    gap: var(--gap-size-desktop);
     transform-style: preserve-3d;
     perspective: 500px;
-    max-width: 440px; 
+    max-width: 525px;
     box-sizing: border-box;
     justify-content: center;
     align-content: center;
+    border: 4px dashed var(--color-border-dark);
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .item {
     position: relative;
-    width: calc((100% - ((var(--num-columns) - 1) * var(--gap-size))) / var(--num-columns));
-    height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size))) / var(--num-rows)); 
-
+    width: calc((100% - ((var(--num-columns) - 1) * var(--gap-size-desktop))) / var(--num-columns));
+    height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size-desktop))) / var(--num-rows));
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 3.5em; 
-
+    font-size: 4.5em;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #FFECB3;
-    color: #795548;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: var(--color-card-lemon);
+    color: var(--color-dark-brown-text);
+    border-radius: 18px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     transform: rotateY(180deg);
-    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), background 0.3s ease-out, box-shadow 0.3s ease-out;
     cursor: pointer;
-    border: 2px solid #FFB74D;
+    border: 3px solid var(--color-border-dark);
 }
 
 .item::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: #64B5F6;
-    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    transition: transform 0.3s ease, background 0.3s ease;
+    background: var(--color-ocean-baby-blue);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 18px;
+    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), background 0.3s ease-out;
     transform: rotateY(0deg);
     backface-visibility: hidden;
-    border: 2px solid #42A5F5;
+    border: 3px solid #7986CB;
+    background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
 }
 
 .item.open {
@@ -149,104 +209,177 @@ h2 {
 }
 
 .match {
-    background: #AED581;
-    color: #fff;
+    background: var(--color-match-success-green);
+    color: #FFF;
     pointer-events: none;
     transform: rotateY(0deg);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    border: 2px solid #8BC34A;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 0 10px var(--color-match-success-green);
+    border: 3px solid var(--color-tropical-mint);
+    animation: pulseMatch 0.8s ease-out forwards;
 }
 
 .match::after {
     transform: rotateY(180deg);
 }
 
+@keyframes pulseMatch {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.03); opacity: 1; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--color-match-success-green); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 992px) {
+    .container {
+        width: 85%;
+        padding: 35px 45px;
+        gap: 25px;
+        max-width: 100%;
+    }
+    h2 {
+        font-size: 3.8rem;
+    }
+    .game {
+        max-width: 450px;
+        --gap-size-desktop: var(--gap-size-tablet);
+    }
+    .item {
+        font-size: 3.8em;
+        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size-tablet))) / var(--num-rows));
+    }
+    .reset {
+        font-size: 1.5em;
+    }
+}
 
 @media (max-width: 768px) {
+    body::before, body::after {
+        height: 250px; /* Ajuste para telas menores */
+        transform: translateY(25%);
+    }
+    body::after {
+        height: 300px;
+        transform: translateY(15%) scaleX(1.1);
+    }
+
     .container {
-        padding: 20px 30px; 
-        gap: 20px; 
-        width: 90%; 
-        border-radius: 15px;
+        padding: 25px 30px;
+        gap: 20px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 100%;
     }
 
     h2 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
+        letter-spacing: 0.05em;
+        white-space: normal;
+        line-height: 1.1em;
     }
 
     .game {
-        --gap-size: 10px; 
-        max-width: 380px;
+        --gap-size-desktop: var(--gap-size-tablet);
+        max-width: 360px;
     }
 
     .item {
-        font-size: 2.8em;
-        border-radius: 10px;
-        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size))) / var(--num-rows));
+        font-size: 3.2em;
+        border-radius: 15px;
+        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size-tablet))) / var(--num-rows));
     }
-
     .item::after {
-        border-radius: 10px;
+        border-radius: 15px;
     }
 
     .reset {
-        font-size: 1.1em;
-        padding: 10px 15px;
-        border-radius: 8px;
+        font-size: 1.3em;
+        padding: 15px 30px;
+        border-radius: 35px;
     }
 }
 
 @media (max-width: 480px) {
+    body::before, body::after {
+        height: 180px; /* Ajuste para telas ainda menores */
+        transform: translateY(30%);
+    }
+    body::after {
+        height: 220px;
+        transform: translateY(20%) scaleX(1.1);
+    }
+
     .container {
-        padding: 15px 20px;
+        padding: 20px 20px;
         gap: 15px;
-        width: 95%; 
-        border-radius: 12px;
+        border-radius: 18px;
+        width: 95%;
+        max-width: 100%;
+    }
+
+    .container::before {
+        height: 20px;
+        top: -8px;
     }
 
     h2 {
-        font-size: 1.8rem;
-        letter-spacing: 0;
+        font-size: 2rem;
+        letter-spacing: 0.03em;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
     }
 
     .game {
-        --gap-size: 8px;
-        max-width: 300px; 
+        --gap-size-desktop: var(--gap-size-mobile);
+        max-width: 280px;
+        border: 3px dashed var(--color-border-dark);
+        padding: 8px;
+        border-radius: 15px;
     }
 
     .item {
-        font-size: 2.2em; 
-        border-radius: 8px;
-        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size))) / var(--num-rows));
+        font-size: 2.5em;
+        border-radius: 12px;
+        border: 2px solid var(--color-border-dark);
+        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size-mobile))) / var(--num-rows));
     }
-     .item::after {
-      border-radius: 8px;
+    .item::after {
+        border-radius: 12px;
+        border: 2px solid #7986CB;
     }
 
     .reset {
-        font-size: 0.9em;
-        padding: 8px 12px;
-        border-radius: 6px;
+        font-size: 1em;
+        padding: 12px 25px;
+        border-radius: 30px;
     }
 }
 
-@media (max-width: 360px) { 
+@media (max-width: 320px) {
+    body::before, body::after {
+        height: 150px;
+        transform: translateY(35%);
+    }
+    body::after {
+        height: 180px;
+        transform: translateY(25%) scaleX(1.1);
+    }
+    .container {
+        padding: 15px;
+        gap: 10px;
+    }
+    h2 {
+        font-size: 1.6rem;
+        letter-spacing: 0.01em;
+    }
     .game {
-        --gap-size: 6px;
-        max-width: 260px; 
+        --gap-size-desktop: 6px;
+        max-width: 220px;
+        padding: 5px;
     }
     .item {
         font-size: 1.8em;
-        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size))) / var(--num-rows));
+        height: calc((100% - ((var(--num-rows) - 1) * 6px)) / var(--num-rows));
     }
-}
-
-@media (max-width: 320px) { 
-    .game {
-        max-width: 220px; 
-    }
-    .item {
-        font-size: 1.5em; 
-        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size))) / var(--num-rows));
+    .reset {
+        font-size: 0.8em;
+        padding: 10px 20px;
     }
 }
