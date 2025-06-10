@@ -18,6 +18,7 @@ const emojis = [
 ];
 
 let openCards = [];
+let isProcessing = false;
 
 function addCards() {
   let shuffleEmojis = emojis.sort(() => Math.random() - 0.5);
@@ -32,30 +33,38 @@ function addCards() {
 }
 
 function handleClick() {
-  // Verifica se o tamanho do array de openCards é menor que 2, caso seja, adiciona a carta clicada ao array de openCards
-  if (openCards.length < 2) {
-    openCards.push(this);
-    openCards[0].classList.add("open");
-    openCards[1].classList.add("open");
+  if (
+    this.classList.contains("open") ||
+    this.classList.contains("match") ||
+    isProcessing
+  ) {
+    return;
   }
+
+  this.classList.add("open");
+  openCards.push(this);
+
   if (openCards.length === 2) {
-    /* Verifica se o array de openCards tem dois elementos */
+    isProcessing = true;
+
     if (openCards[0].innerHTML === openCards[1].innerHTML) {
-      /* Verifica se as cartas clicadas sao iguais */
-      openCards[0].classList.add("match");
-      openCards[1].classList.add("match");
-      openCards[0].classList.add("open");
-      openCards[1].classList.add("open");
+      openCards.forEach((card) => {
+        card.classList.add("match");
+      });
       openCards = [];
+      isProcessing = false;
     } else {
       setTimeout(() => {
-        openCards[0].classList.remove("open");
-        openCards[1].classList.remove("open");
+        openCards.forEach((card) => {
+          card.classList.remove("open");
+        });
         openCards = [];
+        isProcessing = false;
       }, 1000);
     }
   }
 }
+
 function init() {
   addCards();
 }
