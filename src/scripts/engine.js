@@ -16,36 +16,36 @@ const emojis = [
   "🐰",
   "🐰",
 ];
-
+// -- DOM --
 const timerEl = document.getElementById("timer");
+const openRankingSvg = document.getElementById("openRankingSvg");
+const modalEl = document.querySelector(".modal");
+const closeButtons = document.querySelectorAll(".close-button, .x-close-button");
+const rankingList = document.getElementById("rankingList");
+
+// -- Vars
+const totalMatchesToWin = 8;
 let totalSeconds = 0;
 let totalMatches = 0;
-const totalMatchesToWin = 8;
 let timerInterval;
 
 let openCards = [];
+
+// -- States --
 let isProcessing = false;
 let isStarted = false;
-
-// Rank
-const openRankingSvg = document.getElementById("openRankingSvg"); // Changed from button to SVG container
-const modalEl = document.querySelector(".modal");
-const closeButtons = document.querySelectorAll(
-  ".close-button, .close-modal-button"
-);
-const rankingList = document.getElementById("rankingList");
 let isPopulated = false;
 
 function addCards() {
   let shuffleEmojis = emojis.sort(() => Math.random() - 0.5);
 
-  for (let i = 0; i < emojis.length; i++) {
+  emojis.forEach((e, i) => {
     let box = document.createElement("div");
     box.className = "item";
     box.innerHTML = shuffleEmojis[i];
     box.onclick = handleClick;
     document.querySelector(".game").appendChild(box);
-  }
+  });
 }
 
 function handleClick() {
@@ -130,7 +130,6 @@ function matchesCount() {
 }
 
 // --- Ranking Functions  ---
-
 function populateRanking() {
   if (!isPopulated) {
     const noDataMessage = document.createElement("li");
@@ -142,7 +141,9 @@ function populateRanking() {
     noDataMessage.style.border = "none";
     noDataMessage.style.padding = "10px 0";
     noDataMessage.style.fontWeight = "normal";
+
     rankingList.appendChild(noDataMessage);
+
     isPopulated = true;
   } else {
     return;
