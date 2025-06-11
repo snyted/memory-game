@@ -27,6 +27,15 @@ let openCards = [];
 let isProcessing = false;
 let isStarted = false;
 
+// Rank
+const openRankingSvg = document.getElementById("openRankingSvg"); // Changed from button to SVG container
+const modalEl = document.querySelector(".modal");
+const closeButtons = document.querySelectorAll(
+  ".close-button, .close-modal-button"
+);
+const rankingList = document.getElementById("rankingList");
+let isPopulated = false;
+
 function addCards() {
   let shuffleEmojis = emojis.sort(() => Math.random() - 0.5);
 
@@ -40,8 +49,8 @@ function addCards() {
 }
 
 function handleClick() {
-  if (!isStarted) { 
-    startTimer();   
+  if (!isStarted) {
+    startTimer();
     isStarted = true;
   }
 
@@ -82,6 +91,8 @@ function init() {
   addCards();
 }
 
+// --- Timer Functions ---
+
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -111,11 +122,43 @@ function stopTimer() {
 }
 
 function matchesCount() {
-  totalMatches++
-  console.log(totalMatches)
+  totalMatches++;
+  console.log(totalMatches);
   if (totalMatches === totalMatchesToWin) {
     stopTimer();
   }
 }
+
+// --- Ranking Functions  ---
+
+function populateRanking() {
+  if (!isPopulated) {
+    const noDataMessage = document.createElement("li");
+    noDataMessage.textContent = "Nenhum tempo registrado ainda.";
+
+    noDataMessage.style.justifyContent = "center";
+    noDataMessage.style.backgroundColor = "transparent";
+    noDataMessage.style.boxShadow = "none";
+    noDataMessage.style.border = "none";
+    noDataMessage.style.padding = "10px 0";
+    noDataMessage.style.fontWeight = "normal";
+    rankingList.appendChild(noDataMessage);
+    isPopulated = true;
+  } else {
+    return;
+  }
+}
+
+// --- Event Listeners for Ranking ---
+openRankingSvg.addEventListener("click", () => {
+  modalEl.style.display = "flex";
+  populateRanking();
+});
+
+closeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    modalEl.style.display = "none";
+  });
+});
 
 init();

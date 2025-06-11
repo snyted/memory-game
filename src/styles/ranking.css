@@ -1,0 +1,192 @@
+/* --- Ranking SVG Trigger (Mobile First) --- */
+.ranking-svg-container {
+  align-self: flex-start;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 40px;
+  background: linear-gradient(
+    to right,
+    var(--color-tropical-mint),
+    var(--color-sky-blue-bg)
+  ); /* Fundo temático */
+  border: 2px solid var(--color-border-dark);
+  border-radius: 10px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 40px; /* Largura inicial para mobile */
+  min-height: 30px; /* Altura para centralizar o conteúdo */
+  color: var(--color-dark-brown-text);
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: 0.9em; /* Tamanho da fonte para mobile */
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.ranking-svg-container:hover {
+  background: linear-gradient(to right, #a9f5ab, var(--color-tropical-mint));
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2), 0 5px 5px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.ranking-svg-container:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-svg-container .ranking-icon {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+/* --- Ranking Modal Styles (Mobile First) --- */
+
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Habilita scroll se o conteúdo for muito grande */
+  background-color: rgba(0, 0, 0, 0.6); 
+  justify-content: center;
+  align-items: center;
+  padding: 10px; /* Padding para garantir que o conteúdo não encoste nas bordas em telas pequenas */
+  box-sizing: border-box; /* Inclui padding na largura/altura total */
+}
+
+/* Estilos do Conteúdo do Modal */
+.modal-content {
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-card-lemon); /* Cor de fundo amarela clara */
+  margin: auto;
+  padding: 20px; /* Padding para mobile */
+  border: 3px solid var(--color-border-dark); /* Borda mais fina para mobile */
+  border-radius: 15px; /* Bordas arredondadas para mobile */
+  width: 95%; /* Largura padrão para mobile */
+  height: 80%;
+  max-width: 400px; /* Um max-width para não esticar demais em tablets/médias */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25),
+    inset 0 2px 8px rgba(255, 255, 255, 0.4);
+  position: relative; /* Para posicionar o botão de fechar */
+  text-align: center;
+  transform: scale(0.9); /* Começa um pouco menor para animação */
+  opacity: 0; /* Começa invisível para animação */
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Transição suave */
+  display: flex; /* Flexbox para organizar o conteúdo interno */
+  flex-direction: column;
+  gap: 15px; /* Espaçamento entre os elementos do modal para mobile */
+  z-index: 1001; /* Garante que o conteúdo fique acima do overlay (z-index: 1000) */
+}
+
+/* Estado do modal aberto */
+.modal .modal-content {
+  transform: scale(1); /* Escala para o tamanho normal */
+  opacity: 1; /* Torna visível */
+}
+
+.close-button {
+  color: var(--color-dark-brown-text);
+  font-size: 2.5em; /* Tamanho para mobile */
+  font-weight: bold;
+  position: absolute;
+  top: 5px; /* Posição para mobile */
+  right: 15px; /* Posição para mobile */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  line-height: 1; /* Garante que o 'X' esteja bem centralizado verticalmente */
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: var(--color-button-orange);
+}
+
+/* Título do Modal */
+.modal-title {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 2rem; /* Tamanho para mobile */
+  color: var(--color-dark-brown-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* Espaçamento para mobile */
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1),
+    3px 3px 0px rgba(255, 255, 255, 0.15);
+  margin-bottom: 10px; /* Margem para mobile */
+  background: linear-gradient(to right, #ffd180, #ffe082);
+  padding: 5px 10px; /* Padding para mobile */
+  border-radius: 10px;
+  border: 2px dashed var(--color-border-dark); /* Borda mais fina para mobile */
+}
+
+/* Lista de Ranking */
+.ranking-list {
+  list-style: none; /* Remove os marcadores de lista */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Espaçamento entre os itens para mobile */
+  font-family: "Fredoka", sans-serif;
+  color: var(--color-dark-brown-text);
+  font-size: 1em; /* Tamanho da fonte para mobile */
+  border: 2px dashed var(--color-tropical-mint); /* Borda tracejada suave */
+  border-radius: 10px;
+  padding: 10px; /* Padding para mobile */
+  background-color: rgba(255, 255, 255, 0.5); /* Fundo claro para a lista */
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.ranking-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px; /* Padding para mobile */
+  background-color: var(--color-card-lemon); /* Fundo para cada item */
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08); /* Sombra mais suave para mobile */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--color-border-dark); /* Borda mais fina para mobile */
+}
+
+.ranking-list li:nth-child(odd) {
+  background-color: #fff8e1; /* Um pouco mais claro para linhas alternadas */
+}
+
+.ranking-list li:hover {
+  transform: translateY(-1px); /* Menor movimento ao hover para mobile */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.rank-position {
+  font-weight: 700;
+  color: var(--color-button-orange);
+  min-width: 30px; /* Espaçamento mínimo para mobile */
+  text-align: left;
+}
+
+.rank-name {
+  flex-grow: 1; /* Permite que o nome ocupe o espaço restante */
+  text-align: left;
+  margin-left: 8px; /* Margem para mobile */
+}
+
+.rank-time {
+  font-weight: 700;
+  color: var(--color-dark-brown-text);
+  text-align: right;
+  min-width: 50px; /* Espaço para o tempo */
+}
+
+/* Botão Fechar no rodapé do modal */
+.close-modal-button {
+  align-self: center;
+  margin-top: 10px; /* Espaçamento acima do botão */
+  padding: 10px 20px; /* Padding para mobile */
+  font-size: 1em; /* Tamanho da fonte para mobile */
+  max-width: 180px; /* Largura menor para mobile */
+}
