@@ -4,6 +4,7 @@
     box-sizing: border-box;
     outline: none;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a {
