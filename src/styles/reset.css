@@ -24,5 +24,8 @@ button {
 }
 
 input {
-    outline: none; 
+    appearance: none;
+    outline: none;
+    border: none;
+    box-shadow: none;
 }

@@ -56,7 +56,6 @@
   justify-content: center;
   align-items: center;
   padding: 10px; /* Padding para garantir que o conteúdo não encoste nas bordas em telas pequenas */
-  box-sizing: border-box; /* Inclui padding na largura/altura total */
 }
 
 .modal-content {

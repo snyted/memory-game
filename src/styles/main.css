@@ -1,310 +1,624 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&display=swap");
 
 :root {
-    --color-sky-blue-bg: #E0F7FA;
-    --color-sandy-peach: #FFCC80;
-    --color-tropical-mint: #A5D6A7;
-    --color-card-lemon: #FFFACD;
-    --color-ocean-baby-blue: #90CAF9;
-    --color-dark-brown-text: #5D4037;
-    --color-button-orange: #FFAB40;
-    --color-match-success-green: #81C784;
-    --color-border-dark: #4E342E;
+  --color-sky-blue-bg: #e0f7fa;
+  --color-sandy-peach: #ffcc80;
+  --color-tropical-mint: #a5d6a7;
+  --color-card-lemon: #fffacd;
+  --color-ocean-baby-blue: #90caf9;
+  --color-dark-brown-text: #5d4037;
+  --color-button-orange: #ffab40;
+  --color-match-success-green: #81c784;
+  --color-border-dark: #4e342e;
 
-    --num-columns: 4;
-    --num-rows: 4;
-    --gap-size-desktop: 18px;
-    --gap-size-tablet: 14px;
-    --gap-size-mobile: 10px; /* Default for mobile-first */
+  --num-columns: 4;
+  --num-rows: 4;
+  --gap-size-desktop: 18px;
+  --gap-size-tablet: 14px;
+  --gap-size-mobile: 10px; /* Default for mobile-first */
 }
 
 body {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--color-sky-blue-bg);
-    user-select: none;
-    background-image: linear-gradient(to bottom, var(--color-sky-blue-bg) 0%, #B3E5FC 100%);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative;
-    font-family: 'Fredoka', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-sky-blue-bg);
+  user-select: none;
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-sky-blue-bg) 0%,
+    #b3e5fc 100%
+  );
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  font-family: "Fredoka", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body::before, body::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    /* Altura para mobile */
-    height: 150px;
-    background-color: var(--color-sandy-peach);
-    border-top-left-radius: 50% 100px;
-    border-top-right-radius: 50% 100px;
-    z-index: -1;
-    /* TranslateY para mobile */
-    transform: translateY(35%);
-    opacity: 0.9;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* Altura para mobile */
+  height: 150px;
+  background-color: var(--color-sandy-peach);
+  border-top-left-radius: 50% 100px;
+  border-top-right-radius: 50% 100px;
+  z-index: -1;
+  /* TranslateY para mobile */
+  transform: translateY(35%);
+  opacity: 0.9;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
 }
 
 body::after {
-    background-color: var(--color-tropical-mint);
-    /* TranslateY para mobile */
-    transform: translateY(25%) scaleX(1.1);
-    opacity: 0.7;
-    height: 180px;
-    border-top-left-radius: 60% 150px;
-    border-top-right-radius: 40% 150px;
-    z-index: -2;
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-tropical-mint);
+  /* TranslateY para mobile */
+  transform: translateY(25%) scaleX(1.1);
+  opacity: 0.7;
+  height: 180px;
+  border-top-left-radius: 60% 150px;
+  border-top-right-radius: 40% 150px;
+  z-index: -2;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
 }
 
 .timer-display {
-    font-family: 'Fredoka', sans-serif;
-    font-size: 1rem; 
-    color: var(--color-dark-brown-text);
-    margin-bottom: 10px;
-    background-color: var(--color-card-lemon);
-    padding: 6px 12px; 
-    border-radius: 10px;
-    border: 2px solid var(--color-border-dark);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-width: 80px;
-    text-align: center;
-    margin-top: 10px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1rem;
+  color: var(--color-dark-brown-text);
+  margin-bottom: 10px;
+  background-color: var(--color-card-lemon);
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 2px solid var(--color-border-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 80px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 #timer {
-    font-weight: 700;
-    color: var(--color-button-orange);
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  color: var(--color-button-orange);
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
 }
 
 .container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; 
-    padding: 15px; 
-    border-radius: 18px; 
-    background-color: var(--color-sandy-peach);
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2), inset 0 5px 15px rgba(255, 255, 255, 0.6);
-    z-index: 1;
-    max-width: 100%; 
-    width: 95%; 
-    box-sizing: border-box;
-    overflow: hidden;
-    border: 5px solid var(--color-border-dark);
-    flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 18px;
+  background-color: var(--color-sandy-peach);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2),
+    inset 0 5px 15px rgba(255, 255, 255, 0.6);
+  z-index: 1;
+  max-width: 100%;
+  width: 95%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 5px solid var(--color-border-dark);
+  flex-shrink: 0;
 }
 
 .container::before {
-    content: "";
-    position: absolute;
-    top: -8px; 
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 20px; 
-    background-color: var(--color-tropical-mint);
-    border-radius: 0 0 100% 100%;
-    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
-    z-index: 2;
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 20px;
+  background-color: var(--color-tropical-mint);
+  border-radius: 0 0 100% 100%;
+  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
 }
 
 h2 {
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 1.6rem; 
-    color: var(--color-dark-brown-text);
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.01em; 
-    text-align: center;
-    line-height: 1.1em;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15); 
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background: linear-gradient(to right, #FFD180, #FFE082);
-    border-radius: 15px;
-    border: 3px dashed var(--color-border-dark);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-    white-space: normal;
-    box-sizing: border-box;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.6rem;
+  color: var(--color-dark-brown-text);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-align: center;
+  line-height: 1.1em;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(to right, #ffd180, #ffe082);
+  border-radius: 15px;
+  border: 3px dashed var(--color-border-dark);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  white-space: normal;
+  box-sizing: border-box;
 }
 
 .reset {
-    padding: 10px 20px;
-    width: 80%;
-    max-width: 300px;
-    color: #FFF;
-    background: linear-gradient(to right, var(--color-button-orange), #FFD54F);
-    border: 5px solid var(--color-border-dark);
-    font-size: 0.8em;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 700;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    border-radius: 30px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  width: 80%;
+  max-width: 300px;
+  color: #fafafa;
+  background: linear-gradient(to right, var(--color-button-orange), #ffd54f);
+  border: 5px solid var(--color-border-dark);
+  font-size: 0.8em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border-radius: 30px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 .reset:hover {
-    background: linear-gradient(to right, #FFD54F, var(--color-button-orange));
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.25);
-    transform: translateY(-5px) scale(1.02);
+  background: linear-gradient(to right, #ffd54f, var(--color-button-orange));
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px) scale(1.02);
 }
 
 .reset:active {
-    transform: translateY(2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .game {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px; 
-    transform-style: preserve-3d;
-    perspective: 500px;
-    max-width: 220px;
-    box-sizing: border-box;
-    justify-content: center;
-    align-content: center;
-    border: 3px dashed var(--color-border-dark);
-    padding: 5px;
-    border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  transform-style: preserve-3d;
+  perspective: 500px;
+  max-width: 220px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-content: center;
+  border: 3px dashed var(--color-border-dark);
+  padding: 5px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .item {
-    position: relative;
-    width: calc((100% - ((var(--num-columns) - 1) * 6px)) / var(--num-columns));
-    height: calc((100% - ((var(--num-rows) - 1) * 6px)) / var(--num-rows));
-    overflow: hidden;
-    font-size: 1.8em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--color-card-lemon);
-    color: var(--color-dark-brown-text);
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    transform: rotateY(180deg);
-    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), background 0.3s ease-out, box-shadow 0.3s ease-out;
-    cursor: pointer;
-    border: 2px solid var(--color-border-dark);
+  position: relative;
+  width: calc((100% - ((var(--num-columns) - 1) * 6px)) / var(--num-columns));
+  height: calc((100% - ((var(--num-rows) - 1) * 6px)) / var(--num-rows));
+  overflow: hidden;
+  font-size: 1.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-card-lemon);
+  color: var(--color-dark-brown-text);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transform: rotateY(180deg);
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    background 0.3s ease-out, box-shadow 0.3s ease-out;
+  cursor: pointer;
+  border: 2px solid var(--color-border-dark);
 }
 
 .item::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--color-ocean-baby-blue);
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), background 0.3s ease-out;
-    transform: rotateY(0deg);
-    backface-visibility: hidden;
-    border: 2px solid #7986CB;
-    background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-ocean-baby-blue);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    background 0.3s ease-out;
+  transform: rotateY(0deg);
+  backface-visibility: hidden;
+  border: 2px solid #7986cb;
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
 }
 
 .item.open {
-    transform: rotateY(0deg);
+  transform: rotateY(0deg);
 }
 
 .item.open::after {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .match {
-    background: var(--color-match-success-green);
-    color: #FFF;
-    pointer-events: none;
-    transform: rotateY(0deg);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 0 10px var(--color-match-success-green);
-    border: 3px solid var(--color-tropical-mint);
-    animation: pulseMatch 0.8s ease-out forwards;
+  background: var(--color-match-success-green);
+  color: #fff;
+  pointer-events: none;
+  transform: rotateY(0deg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25),
+    0 0 10px var(--color-match-success-green);
+  border: 3px solid var(--color-tropical-mint);
+  animation: pulseMatch 0.8s ease-out forwards;
 }
 
 .match::after {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
+/* --- MODAIS: Estado inicial escondido e transição de opacidade --- */
+.nickname-modal,
+.modal {
+  display: none; /* Esconde o modal por padrão */
+  opacity: 0; /* Começa invisível para transição */
+  transition: opacity 0.3s ease-in-out; /* Transição suave de opacidade */
+}
+
+/* Quando o JavaScript adicionar a classe 'active', o modal aparece */
+.nickname-modal.active,
+.modal.active {
+  opacity: 1; /* Torna-o totalmente visível */
+}
+
+/* --- ESTILOS DO MODAL DE NICKNAME (SEUS ESTILOS INICIAIS + AJUSTES) --- */
+.nickname-modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.377);
+}
+
+.nickname-modal .nickname-modal-content {
+  display: flex;
+  min-width: 70%;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-sandy-peach);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.6);
+  border: 3px solid var(--color-border-dark);
+  border-radius: 15px;
+  padding: 10px;
+  position: relative; /* Para posicionar o botão de fechar */
+}
+
+.nickname-modal-content p {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.8rem; /* Reduzido um pouco para caber o tempo */
+  color: var(--color-dark-brown-text); /* Mudei para texto marrom para visibilidade */
+  text-transform: capitalize;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.1); /* Sombra mais sutil */
+  padding: 5px 0px;
+  margin-bottom: 10px; /* Espaço antes do input */
+  line-height: 1.2; /* Para multilinhas */
+}
+
+/* Estilo para o span do tempo dentro do parágrafo */
+.nickname-modal-content p #finalTimeDisplay {
+  font-size: 1.1em; /* Relativo ao tamanho do p */
+  font-weight: 700;
+  color: var(--color-button-orange); /* Laranja para o tempo */
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+  display: block; /* Para que o tempo fique em sua própria linha se necessário */
+  margin-top: 5px;
+}
+
+.nickname-modal-content #nickname {
+  background-color: var(
+    --color-card-lemon
+  ); /* Fundo amarelado, como os cards */
+  border: 3px dashed var(--color-border-dark);
+  border-radius: 10px; /* Bordas arredondadas */
+  padding: 10px 15px; /* Espaçamento interno generoso para mobile */
+  font-family: "Fredoka", sans-serif; /* Fonte do jogo */
+  font-size: 1.3rem; /* Tamanho da fonte para mobile */
+  color: var(--color-dark-brown-text); /* Cor do texto */
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.2); /* Sombra suave para o texto */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidade */
+  transition: all 0.3s ease-in-out; /* Transição suave para estados de foco/hover */
+  width: calc(100% - 30px); /* Largura total menos padding (mobile) */
+  max-width: 250px; /* Limite de largura para telas maiores */
+}
+
+#nickname::placeholder {
+  color: rgba(90, 45, 12, 0.6); /* Cor mais clara para o placeholder */
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+#nickname:focus {
+  border-color: var(--color-button-orange); /* Borda laranja ao focar */
+  background-color: #fffee0; /* Levemente mais claro ao focar */
+  transform: translateY(-1px); /* Pequeno levantamento visual */
+}
+
+/* --- Estilos para o NOVO CONTAINER DE BOTÕES no modal de nickname --- */
+.nickname-modal-buttons {
+  display: flex;
+  flex-direction: column; /* Empilhados em mobile */
+  gap: 15px; /* Espaçamento entre os botões */
+  width: 100%;
+  align-items: center; /* Centraliza na coluna */
+  margin-top: 10px; /* Espaçamento acima do container de botões */
+}
+
+/* --- Estilos para o BOTÃO SALVAR (reusa a classe reset e ajusta) --- */
+#saveNicknameBtn {
+  width: calc(100% - 20px); /* Ajuste de largura para mobile */
+  max-width: 250px; /* Limite de largura para telas maiores */
+  font-size: 1.1em; /* Um pouco maior que o reset padrão do jogo */
+  padding: 12px 25px;
+  border-radius: 20px;
+}
+
+/* --- Estilos para o BOTÃO PULAR (mantém o seu estilo, adiciona hover/active) --- */
+.nickname-modal-content .skip-button {
+  background: linear-gradient(to right, var(--color-button-orange), #ffd54f);
+  color: #fafafa;
+  border: 2px solid var(--color-border-dark);
+  border-radius: 20px; /* Deixei consistente com o Salvar */
+  padding: 12px 25px; /* Deixei consistente com o Salvar */
+  font-size: 1.1em; /* Deixei consistente com o Salvar */
+  font-weight: 600;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-transform: capitalize;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: calc(100% - 20px);
+  max-width: 250px;
+}
+
+.nickname-modal-content .skip-button:hover {
+  background: linear-gradient(to right, #ffd54f, var(--color-button-orange));
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15), 0 5px 5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.nickname-modal-content .skip-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Estilos para o botão de fechar (X) dentro do modal de nickname --- */
+.nickname-modal-content .close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--color-border-dark);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  line-height: 1;
+  z-index: 10;
+}
+
+.nickname-modal-content .close-button:hover,
+.nickname-modal-content .close-button:focus {
+  color: var(--color-button-orange);
+  text-decoration: none;
+  outline: none;
+}
+
+/* --- Keyframe para a animação 'pulseMatch' --- */
 @keyframes pulseMatch {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.03); opacity: 1; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--color-match-success-green); }
-    100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3),
+      0 0 15px var(--color-match-success-green);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-/* --- Small Mobile Devices (e.g., max-width: 480px, but 320px is the base) --- */
-@media (min-width: 321px) and (max-width: 480px) {
-    body::before, body::after {
-        height: 180px;
-        transform: translateY(30%);
-    }
-    body::after {
-        height: 220px;
-        transform: translateY(20%) scaleX(1.1);
-    }
-
-    .timer-display {
-        font-size: 1rem;
-        padding: 6px 12px;
-        min-width: 80px;
-    }
-
-    .container {
-        padding: 20px 20px;
-        gap: 15px;
-        border-radius: 18px;
-        width: 95%;
-    }
-
-    .container::before {
-        height: 20px;
-        top: -8px;
-    }
-
-    h2 {
-        font-size: 2rem;
-        letter-spacing: 0.03em;
-        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-    }
-
-    .game {
-        --gap-size-desktop: var(--gap-size-mobile); /* Using the variable for consistency */
-        max-width: 280px;
-        border: 3px dashed var(--color-border-dark);
-        padding: 8px;
-        border-radius: 15px;
-    }
-
-    .item {
-        font-size: 2.5em;
-        border-radius: 12px;
-        border: 2px solid var(--color-border-dark);
-        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size-mobile))) / var(--num-rows));
-    }
-    .item::after {
-        border-radius: 12px;
-        border: 2px solid #7986CB;
-    }
-
-    .reset {
-        font-size: 1em;
-        padding: 12px 25px;
-        border-radius: 30px;
-    }
+/* As regras para o .modal (ranking) já estavam no seu código, mas adicionei display:none e opacity:0 acima. */
+/* Se você tiver um arquivo ranking.css separado, essas regras poderiam ir lá. */
+/* No seu HTML, o modal de ranking tem a classe "modal" */
+.modal {
+  /* ... (suas regras existentes para o modal de ranking) ... */
+  display: flex; /* Mantém flex para centralização quando visível */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
 }
+
+.modal-content {
+  background-color: var(--color-card-lemon);
+  margin: auto;
+  padding: 20px;
+  border: 5px solid var(--color-border-dark);
+  border-radius: 15px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.modal-title {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.8rem;
+  color: var(--color-dark-brown-text);
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 2px dashed var(--color-border-dark);
+  border-radius: 8px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.ranking-list li {
+  background-color: var(--color-ocean-baby-blue);
+  color: #fff;
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1em;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #7986cb;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+}
+
+.ranking-list li:nth-child(1) {
+  background: linear-gradient(to right, #ffeb3b, #ffc107);
+  color: var(--color-dark-brown-text);
+  font-weight: 700;
+  border-color: #fbc02d;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 10px #ffeb3b;
+}
+
+.ranking-list li:nth-child(2) {
+  background: linear-gradient(to right, #bdbdbd, #9e9e9e);
+  color: var(--color-dark-brown-text);
+  font-weight: 600;
+  border-color: #757575;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 0 8px #bdbdbd;
+}
+
+.ranking-list li:nth-child(3) {
+  background: linear-gradient(to right, #cd7f32, #a0522d);
+  color: #fff;
+  font-weight: 600;
+  border-color: #8d6e63;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 6px #cd7f32;
+}
+
+.ranking-list li:last-child {
+  margin-bottom: 0;
+}
+
+.ranking-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ranking-list::-webkit-scrollbar-track {
+  background: var(--color-tropical-mint);
+  border-radius: 10px;
+}
+
+.ranking-list::-webkit-scrollbar-thumb {
+  background: var(--color-button-orange);
+  border-radius: 10px;
+}
+
+.ranking-list::-webkit-scrollbar-thumb:hover {
+  background: #e69a00;
+}
+
+.rank-position {
+  font-size: 1.1em;
+  min-width: 30px;
+  text-align: left;
+}
+
+.rank-name {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 5px;
+}
+
+.rank-time {
+  min-width: 60px;
+  text-align: right;
+  font-weight: 600;
+}
+
+.x-close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--color-border-dark);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.x-close-button:hover,
+.x-close-button:focus {
+  color: var(--color-button-orange);
+  text-decoration: none;
+  outline: none;
+}
+
+.ranking-svg-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--color-card-lemon);
+  border: 3px solid var(--color-border-dark);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  z-index: 500;
+}
+
+.ranking-svg-container:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.ranking-svg-container:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-icon {
+  width: 35px;
+  height: 35px;
+}
+
+/* Media Queries (removidas como você pediu) */
