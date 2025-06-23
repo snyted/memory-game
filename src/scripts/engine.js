@@ -11,7 +11,6 @@ const rankingList = document.getElementById("rankingList");
 const nicknameContainer = document.querySelector(".nickname-container");
 const nicknameInput = document.getElementById("nicknameInput");
 
-console.log(closeButtons);
 // -- Var and Const
 const emojis = [
   "🐸",
@@ -35,8 +34,7 @@ let openCards = [];
 let playersData = [];
 const totalMatchesToWin = emojis.length / 2;
 let totalSeconds = 0;
-// MUDAR O TOTAL MATCHES PARA 0
-let totalMatches = 7;
+let totalMatches = 0;
 let timerInterval;
 let nickname;
 
@@ -138,7 +136,6 @@ function matchesCount() {
 
 // --- Ranking Functions  ---
 function rankingData(nicknameWrited) {
-  console.log(nicknameWrited);
   // Adiciona no array de objetos as infos atuais do player
   playersData.push({
     nick: `${nicknameWrited ? nicknameWrited : idGenerator(nickname)}`,
@@ -150,7 +147,8 @@ function rankingData(nicknameWrited) {
 }
 
 function displayRanking() {
-  console.log(playersData.length);
+  rankingList.innerHTML = "";
+
   if (playersData.length === 0) {
     const noDataMessage = document.createElement("li");
     noDataMessage.style.background = `transparent`;
@@ -160,8 +158,6 @@ function displayRanking() {
 
     return rankingList.appendChild(noDataMessage);
   }
-
-  rankingList.innerHTML = "";
 
   playersData.forEach((p, i) => {
     const DataMessage = document.createElement("li");
@@ -179,9 +175,9 @@ function displayRanking() {
 
 // --- Nickname Functions ---
 function displayNicknameModal() {
-  const displayFinalTime = document.getElementById("displayFinalTime")
+  const displayFinalTime = document.getElementById("displayFinalTime");
   if (isFinished) {
-    displayFinalTime.innerText = timerEl.innerText
+    displayFinalTime.innerText = timerEl.innerText;
     nicknameContainer.style.display = "flex";
   }
 }
