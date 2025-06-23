@@ -4,8 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./src/styles/reset.css" />
+    <!-- Normalize.css -->
+    <link rel="stylesheet" href="/src/styles/reset.css" />
+    <!-- Modals/Parts -->
     <link rel="stylesheet" href="./src/styles/ranking.css" />
+    <link rel="stylesheet" href="./src/styles/nickname.css" />
+    <!-- Principal -->
     <link rel="stylesheet" href="./src/styles/main.css" />
     <title>Jogo da memória</title>
   </head>
@@ -18,6 +22,16 @@
       <button class="reset" onclick="window.location.reload()">
         REINICIAR
       </button>
+    </div>
+
+    <div class="nickname-container">
+      <div class="nickname-content">
+        <p class="n-text">Parabéns, você concluiu!</p>
+        <span id="displayFinalTime" class="n-text">00:35</span>
+        <input type="text" placeholder="Insira um nome" id="nicknameInput" maxlength="10"/>
+        <button class="confirm-btn">Confirmar</button>
+        <button class="skip-btn">Pular</button>
+      </div>
     </div>
 
     <div id="openRankingSvg" class="ranking-svg-container">
@@ -65,8 +79,7 @@
       <div class="modal-content">
         <span class="x-close-button">&times;</span>
         <h3 class="modal-title">🏆 Ranking de Tempos 🏆</h3>
-        <ul id="rankingList" class="ranking-list">
-        </ul>
+        <ul id="rankingList" class="ranking-list"></ul>
         <button class="reset close-button">Fechar</button>
       </div>
     </div>

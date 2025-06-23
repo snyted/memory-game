@@ -248,63 +248,7 @@ h2 {
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* --- Small Mobile Devices (e.g., max-width: 480px, but 320px is the base) --- */
-@media (min-width: 321px) and (max-width: 480px) {
-    body::before, body::after {
-        height: 180px;
-        transform: translateY(30%);
-    }
-    body::after {
-        height: 220px;
-        transform: translateY(20%) scaleX(1.1);
-    }
+  button:active {
+    transform: translateY(3px);
+  }
 
-    .timer-display {
-        font-size: 1rem;
-        padding: 6px 12px;
-        min-width: 80px;
-    }
-
-    .container {
-        padding: 20px 20px;
-        gap: 15px;
-        border-radius: 18px;
-        width: 95%;
-    }
-
-    .container::before {
-        height: 20px;
-        top: -8px;
-    }
-
-    h2 {
-        font-size: 2rem;
-        letter-spacing: 0.03em;
-        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
-    }
-
-    .game {
-        --gap-size-desktop: var(--gap-size-mobile); /* Using the variable for consistency */
-        max-width: 280px;
-        border: 3px dashed var(--color-border-dark);
-        padding: 8px;
-        border-radius: 15px;
-    }
-
-    .item {
-        font-size: 2.5em;
-        border-radius: 12px;
-        border: 2px solid var(--color-border-dark);
-        height: calc((100% - ((var(--num-rows) - 1) * var(--gap-size-mobile))) / var(--num-rows));
-    }
-    .item::after {
-        border-radius: 12px;
-        border: 2px solid #7986CB;
-    }
-
-    .reset {
-        font-size: 1em;
-        padding: 12px 25px;
-        border-radius: 30px;
-    }
-}

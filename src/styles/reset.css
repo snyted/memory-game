@@ -1,28 +1,103 @@
-* {
+/* Reset base total */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Remove estilo padrão de listas */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove decoração de links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove estilos padrão de botões */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove estilos padrão de títulos, parágrafos, etc. */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Tira espaçamento de tabelas */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Tira aspas automáticas */
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+}
+
+/* Imagens e mídias responsivas */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* HTML5 semantic block elements (para garantir consistência) */
+article,
+aside,
+footer,
+header,
+nav,
+section,
+main {
+  display: block;
+}
+
+/* Garantia de que não tenha scroll */
+html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
-}
+    overflow: hidden; /* força o scroll horizontal a desaparecer */
+  }
 
-a {
-    text-decoration: none;
-}
-
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-}
-
-button {
-    cursor: pointer;
-}
-
-input {
-    outline: none; 
+/* Base do body */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: sans-serif;
+  background: #fff;
+  color: #000;
 }

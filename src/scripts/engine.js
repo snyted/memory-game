@@ -1,3 +1,18 @@
+// -- DOM --
+const timerEl = document.getElementById("timer");
+const openRankButton = document.getElementById("openRankingSvg");
+const modalEl = document.querySelector(".modal");
+const closeButtons = document.querySelectorAll(
+  ".close-button, .x-close-button"
+);
+const skipButton = document.querySelector(".skip-btn");
+const confirmButton = document.querySelector(".confirm-btn");
+const rankingList = document.getElementById("rankingList");
+const nicknameContainer = document.querySelector(".nickname-container");
+const nicknameInput = document.getElementById("nicknameInput");
+
+console.log(closeButtons);
+// -- Var and Const
 const emojis = [
   "🐸",
   "🐸",
@@ -16,32 +31,24 @@ const emojis = [
   "🐰",
   "🐰",
 ];
-// -- DOM --
-const timerEl = document.getElementById("timer");
-const openRankingSvg = document.getElementById("openRankingSvg");
-const modalEl = document.querySelector(".modal");
-const closeButtons = document.querySelectorAll(
-  ".close-button, .x-close-button"
-);
-const rankingList = document.getElementById("rankingList");
-
-// -- Vars
-const totalMatchesToWin = 8;
+let openCards = [];
+let playersData = [];
+const totalMatchesToWin = emojis.length / 2;
 let totalSeconds = 0;
-let totalMatches = 0;
+// MUDAR O TOTAL MATCHES PARA 0
+let totalMatches = 7;
 let timerInterval;
 let nickname;
 
-let openCards = [];
 // -- States --
 let isProcessing = false;
 let isStarted = false;
-let isPopulated = false;
+let isFinished = false;
 
 function addCards() {
   let shuffleEmojis = emojis.sort(() => Math.random() - 0.5);
 
-  emojis.forEach((e, i) => {
+  emojis.forEach((_, i) => {
     let box = document.createElement("div");
     box.className = "item";
     box.innerHTML = shuffleEmojis[i];
@@ -53,9 +60,9 @@ function addCards() {
 function handleClick() {
   if (!isStarted) {
     startTimer();
-    isStarted = true;
   }
 
+  // Verificando se contém alguma carta aberta, caso contenha ele não faz nada e retorna a func.
   if (
     this.classList.contains("open") ||
     this.classList.contains("match") ||
@@ -89,26 +96,22 @@ function handleClick() {
   }
 }
 
-function init() {
-  addCards();
-}
-
 // --- Timer Functions ---
 
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
 
-  // padStart(2, '0') garante que sempre tenha 2 dígitos
   return `${String(minutes).padStart(2, "0")}:${String(
     remainingSeconds
   ).padStart(2, "0")}`;
 }
 
 function startTimer() {
-  clearInterval(timerInterval);
-
+  isStarted = true;
   totalSeconds = 0;
+
+  clearInterval(timerInterval);
 
   timerInterval = setInterval(() => {
     totalSeconds++;
@@ -116,48 +119,94 @@ function startTimer() {
   }, 1000);
 }
 
+// Função que para o contador e gera um nick aleatório para o ranking
 function stopTimer() {
   clearInterval(timerInterval);
   isStarted = false;
-  nickname = idGenerator();
-  console.log(totalSeconds)
+  isFinished = true;
+  displayNicknameModal();
 }
 
+// Verifica o total de matches para poder parar o jogo.
 function matchesCount() {
   totalMatches++;
-  console.log(totalMatches);
+
   if (totalMatches === totalMatchesToWin) {
     stopTimer();
   }
 }
 
 // --- Ranking Functions  ---
+function rankingData(nicknameWrited) {
+  console.log(nicknameWrited);
+  // Adiciona no array de objetos as infos atuais do player
+  playersData.push({
+    nick: `${nicknameWrited ? nicknameWrited : idGenerator(nickname)}`,
+    time: `${formatTime(totalSeconds)}`,
+    totalSeconds: totalSeconds,
+  });
 
-function rankingSave(timer) {
-  formatTime(timer);
-
-
+  displayRanking();
 }
 
-function populateRanking(timer, nickname) {
-  if (!isPopulated) {
+function displayRanking() {
+  console.log(playersData.length);
+  if (playersData.length === 0) {
     const noDataMessage = document.createElement("li");
-    noDataMessage.innerHTML  = `<strong>Player</strong>: ${nickname}&nbsp;|&nbsp;<strong>Tempo</strong>: ${timer}`;
+    noDataMessage.style.background = `transparent`;
+    noDataMessage.style.border = `none`;
+    noDataMessage.style.justifyContent = `center`;
+    noDataMessage.innerHTML = `Não há registros.`;
 
-    noDataMessage.style.justifyContent = "center";
-    noDataMessage.style.backgroundColor = "transparent";
-    noDataMessage.style.boxShadow = "none";
-    noDataMessage.style.border = "none";
-    noDataMessage.style.padding = "10px 0";
-    noDataMessage.style.fontWeight = "normal";
+    return rankingList.appendChild(noDataMessage);
+  }
 
-    rankingList.appendChild(noDataMessage);
+  rankingList.innerHTML = "";
 
-    isPopulated = true;
-  } else {
-    return;
+  playersData.forEach((p, i) => {
+    const DataMessage = document.createElement("li");
+
+    DataMessage.innerHTML = `<span>${
+      i + 1
+    }</span>º &nbsp<strong>Player</strong>: ${
+      p.nick.trim() ?? `Jorge`
+    }&nbsp;|&nbsp;<strong>Tempo</strong>: ${p.time ?? `--:--`}`;
+
+    DataMessage.style.justifyContent = "center";
+    rankingList.appendChild(DataMessage);
+  });
+}
+
+// --- Nickname Functions ---
+function displayNicknameModal() {
+  const displayFinalTime = document.getElementById("displayFinalTime")
+  if (isFinished) {
+    displayFinalTime.innerText = timerEl.innerText
+    nicknameContainer.style.display = "flex";
   }
 }
+
+// --- Event Listeners ---
+openRankButton.addEventListener("click", () => {
+  modalEl.style.display = "flex";
+  displayRanking();
+});
+
+closeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    modalEl.style.display = "none";
+  });
+});
+
+skipButton.addEventListener("click", () => {
+  rankingData(false);
+  nicknameContainer.style.display = "none";
+});
+
+confirmButton.addEventListener("click", () => {
+  rankingData(nicknameInput.value);
+  nicknameContainer.style.display = "none";
+});
 
 // Essa função é para pessoas que não colocarem seu nick, vai gerar um aleatório.
 function idGenerator() {
@@ -172,16 +221,8 @@ function idGenerator() {
   return result;
 }
 
-// --- Event Listeners for Ranking ---
-openRankingSvg.addEventListener("click", () => {
-  modalEl.style.display = "flex";
-  populateRanking(totalSeconds, nickname);
-});
-
-closeButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    modalEl.style.display = "none";
-  });
-});
-
+// --- Iniciando o jogo ---
+function init() {
+  addCards();
+}
 init();
