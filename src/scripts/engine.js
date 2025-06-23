@@ -60,8 +60,8 @@ function handleClick() {
     startTimer();
   }
 
-  // Verificando se contém alguma carta aberta, caso contenha ele não faz nada e retorna a func.
-  if (
+  
+  if ( // Verificando se contém alguma carta aberta, caso contenha ele não faz nada e retorna a func.
     this.classList.contains("open") ||
     this.classList.contains("match") ||
     isProcessing
@@ -95,7 +95,6 @@ function handleClick() {
 }
 
 // --- Timer Functions ---
-
 function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -136,8 +135,7 @@ function matchesCount() {
 
 // --- Ranking Functions  ---
 function rankingData(nicknameWrited) {
-  // Adiciona no array de objetos as infos atuais do player
-  playersData.push({
+  playersData.push({ // Adiciona no array de objetos as infos atuais do player
     nick: `${nicknameWrited ? nicknameWrited : idGenerator(nickname)}`,
     time: `${formatTime(totalSeconds)}`,
     totalSeconds: totalSeconds,
