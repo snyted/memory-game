@@ -34,7 +34,7 @@ let openCards = [];
 let playersData = [];
 const totalMatchesToWin = emojis.length / 2;
 let totalSeconds = 0;
-let totalMatches = 0;
+let totalMatches = 7;
 let timerInterval;
 let nickname;
 
@@ -60,8 +60,8 @@ function handleClick() {
     startTimer();
   }
 
-  
-  if ( // Verificando se contém alguma carta aberta, caso contenha ele não faz nada e retorna a func.
+  if (
+    // Verificando se contém alguma carta aberta, caso contenha ele não faz nada e retorna a func.
     this.classList.contains("open") ||
     this.classList.contains("match") ||
     isProcessing
@@ -95,14 +95,6 @@ function handleClick() {
 }
 
 // --- Timer Functions ---
-function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-
-  return `${String(minutes).padStart(2, "0")}:${String(
-    remainingSeconds
-  ).padStart(2, "0")}`;
-}
 
 function startTimer() {
   isStarted = true;
@@ -116,7 +108,6 @@ function startTimer() {
   }, 1000);
 }
 
-// Função que para o contador e gera um nick aleatório para o ranking
 function stopTimer() {
   clearInterval(timerInterval);
   isStarted = false;
@@ -135,7 +126,8 @@ function matchesCount() {
 
 // --- Ranking Functions  ---
 function rankingData(nicknameWrited) {
-  playersData.push({ // Adiciona no array de objetos as infos atuais do player
+  playersData.push({
+    // Adiciona no array de objetos as infos atuais do player
     nick: `${nicknameWrited ? nicknameWrited : idGenerator(nickname)}`,
     time: `${formatTime(totalSeconds)}`,
     totalSeconds: totalSeconds,
@@ -202,7 +194,7 @@ confirmButton.addEventListener("click", () => {
   nicknameContainer.style.display = "none";
 });
 
-// Essa função é para pessoas que não colocarem seu nick, vai gerar um aleatório.
+// Utility Functions
 function idGenerator() {
   const caracteres =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -215,8 +207,26 @@ function idGenerator() {
   return result;
 }
 
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  return `${String(minutes).padStart(2, "0")}:${String(
+    remainingSeconds
+  ).padStart(2, "0")}`;
+}
+
 // --- Iniciando o jogo ---
 function init() {
   addCards();
 }
+
+// --- Resetando o jogo ---
+function reset() {
+  isFinished = false;
+  totalMatches = 7;
+  document.querySelector(".game").innerHTML = "";
+  addCards();
+}
+
 init();
