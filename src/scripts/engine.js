@@ -164,13 +164,16 @@ function displayRanking() {
         rankingList.appendChild(noDataMessage);
         return;
       }
+
+      // Cria um contador para o ranking
+      let rank = 1;
       
-      querySnapshot.forEach((doc, i) => {
+      querySnapshot.forEach((doc) => {
         const p = doc.data();
         const DataMessage = document.createElement("li");
         DataMessage.innerHTML = `
           <div class="ranking-item">
-              <span class="ranking-position">${i + 1}º</span>
+              <span class="ranking-position">${rank}º</span>
               <div class="player-details">
                   <span class="player-name"><strong>Player</strong>: ${p.nick.trim() || 'Anônimo'}</span>
                   <span class="player-time"><strong>Tempo</strong>: ${p.time || '--:--'}</span>
@@ -178,6 +181,8 @@ function displayRanking() {
           </div>
         `;
         rankingList.appendChild(DataMessage);
+        // Incrementa o contador a cada iteração
+        rank++;
       });
     })
     .catch((error) => {
