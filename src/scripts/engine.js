@@ -111,7 +111,6 @@ function stopTimer() {
   clearInterval(timerInterval);
   isStarted = false;
   isFinished = true;
-  timerEl.textContent = "00:00"
   displayNicknameModal();
 }
 
@@ -261,7 +260,7 @@ function reset() {
   totalMatches = 0; // Precisa mudar para 0
   document.querySelector(".game").innerHTML = "";
   clearInterval(timerInterval)
-  timerEl.textContent = "00:00"
+  isStarted = false
   addCards();
 }
 
