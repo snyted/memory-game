@@ -33,7 +33,7 @@ const emojis = [
 let openCards = [];
 const totalMatchesToWin = emojis.length / 2;
 let totalMilliseconds = 0;
-let totalMatches = 7; // Sempre 0, se tiver outro número é porque eu estava testando;
+let totalMatches = 0; // Sempre 0, se tiver outro número é porque eu estava testando;
 let timerInterval;
 let nickname;
 
@@ -252,7 +252,7 @@ function init() {
 // --- Resetando o jogo ---
 function reset() {
   isFinished = false;
-  totalMatches = 7; // Precisa mudar para 0
+  totalMatches = 0; // Precisa mudar para 0
   document.querySelector(".game").innerHTML = "";
   addCards();
 }
