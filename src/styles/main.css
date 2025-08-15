@@ -204,6 +204,12 @@ h2 {
     transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), background 0.3s ease-out, box-shadow 0.3s ease-out;
     cursor: pointer;
     border: 2px solid var(--color-border-dark);
+
+    /* Evitar que selecionem os emojis */
+    -webkit-user-select: none;  
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .item::after {
