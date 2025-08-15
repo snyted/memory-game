@@ -34,7 +34,7 @@ let openCards = [];
 let playersData = [];
 const totalMatchesToWin = emojis.length / 2;
 let totalMilliseconds = 0;
-let totalMatches = 0;
+let totalMatches = 0 // Sempre 0, se tiver outro número é porque eu estava testando;
 let timerInterval;
 let nickname;
 
@@ -137,9 +137,11 @@ function rankingData(nicknameWrited) {
 }
 
 function displayRanking() {
+  let topPlayers = playersData
+
   rankingList.innerHTML = "";
 
-  if (playersData.length === 0) {
+  if (topPlayers.length === 0) {
     const noDataMessage = document.createElement("li");
     noDataMessage.style.background = `transparent`;
     noDataMessage.style.border = `none`;
@@ -149,14 +151,20 @@ function displayRanking() {
     return rankingList.appendChild(noDataMessage);
   }
 
-  playersData.forEach((p, i) => {
+  topPlayers = topPlayers.sort((a, b) => a.totalMilliseconds - b.totalMilliseconds).slice(0, 50);
+
+  topPlayers.forEach((p, i) => {
     const DataMessage = document.createElement("li");
 
-    DataMessage.innerHTML = `<span>${
-      i + 1
-    }</span>º &nbsp<strong>Player</strong>: ${
-      p.nick.trim() ?? `Jorge`
-    }&nbsp;|&nbsp;<strong>Tempo</strong>: ${p.time ?? `--:--`}`;
+    DataMessage.innerHTML = `
+    <div class="ranking-item">
+        <span class="ranking-position">${i + 1}º</span>
+        <div class="player-details">
+            <span class="player-name"><strong>Player</strong>: ${p.nick.trim() ?? `Anônimo`}</span>
+            <span class="player-time"><strong>Tempo</strong>: ${p.time ?? `--:--`}</span>
+        </div>
+    </div>
+`;
 
     DataMessage.style.justifyContent = "center";
     rankingList.appendChild(DataMessage);
