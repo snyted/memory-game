@@ -31,10 +31,9 @@ const emojis = [
   "🐰",
 ];
 let openCards = [];
-let playersData = [];
 const totalMatchesToWin = emojis.length / 2;
 let totalMilliseconds = 0;
-let totalMatches = 0 // Sempre 0, se tiver outro número é porque eu estava testando;
+let totalMatches = 7; // Sempre 0, se tiver outro número é porque eu estava testando;
 let timerInterval;
 let nickname;
 
@@ -124,51 +123,70 @@ function matchesCount() {
   }
 }
 
-// --- Ranking Functions  ---
+// --- Ranking Functions ---
 function rankingData(nicknameWrited) {
-  playersData.push({
-    // Adiciona no array de objetos as infos atuais do player
+  // Salva os dados do jogador no Firebase
+  const rankingRef = db.collection("jogadores");
+  const playerData = {
     nick: `${nicknameWrited ? nicknameWrited : idGenerator(nickname)}`,
     time: `${formatTime(totalMilliseconds)}`,
     totalMilliseconds: totalMilliseconds,
-  });
-
-  displayRanking();
+  };
+  rankingRef
+    .add(playerData)
+    .then(() => {
+      console.log("Documento salvo com sucesso!");
+      displayRanking();
+    })
+    .catch((error) => {
+      console.error("Erro ao salvar o documento: ", error);
+      displayRanking();
+    });
 }
 
+// Função displayRanking que busca os dados do Firebase
 function displayRanking() {
-  let topPlayers = playersData
-
+  const rankingList = document.getElementById("rankingList");
   rankingList.innerHTML = "";
+  const loadingMessage = document.createElement("li");
+  loadingMessage.innerText = "Carregando ranking...";
+  loadingMessage.style.textAlign = "center";
+  rankingList.appendChild(loadingMessage);
 
-  if (topPlayers.length === 0) {
-    const noDataMessage = document.createElement("li");
-    noDataMessage.style.background = `transparent`;
-    noDataMessage.style.border = `none`;
-    noDataMessage.style.justifyContent = `center`;
-    noDataMessage.innerHTML = `Não há registros.`;
+  db.collection("jogadores").orderBy("totalMilliseconds", "asc").limit(50).get()
+    .then((querySnapshot) => {
+      rankingList.innerHTML = "";
 
-    return rankingList.appendChild(noDataMessage);
-  }
-
-  topPlayers = topPlayers.sort((a, b) => a.totalMilliseconds - b.totalMilliseconds).slice(0, 50);
-
-  topPlayers.forEach((p, i) => {
-    const DataMessage = document.createElement("li");
-
-    DataMessage.innerHTML = `
-    <div class="ranking-item">
-        <span class="ranking-position">${i + 1}º</span>
-        <div class="player-details">
-            <span class="player-name"><strong>Player</strong>: ${p.nick.trim() ?? `Anônimo`}</span>
-            <span class="player-time"><strong>Tempo</strong>: ${p.time ?? `--:--`}</span>
-        </div>
-    </div>
-`;
-
-    DataMessage.style.justifyContent = "center";
-    rankingList.appendChild(DataMessage);
-  });
+      if (querySnapshot.empty) {
+        const noDataMessage = document.createElement("li");
+        noDataMessage.innerText = "Não há registros. Seja o primeiro!";
+        noDataMessage.classList.add('no-data-message');
+        rankingList.appendChild(noDataMessage);
+        return;
+      }
+      
+      querySnapshot.forEach((doc, i) => {
+        const p = doc.data();
+        const DataMessage = document.createElement("li");
+        DataMessage.innerHTML = `
+          <div class="ranking-item">
+              <span class="ranking-position">${i + 1}º</span>
+              <div class="player-details">
+                  <span class="player-name"><strong>Player</strong>: ${p.nick.trim() || 'Anônimo'}</span>
+                  <span class="player-time"><strong>Tempo</strong>: ${p.time || '--:--'}</span>
+              </div>
+          </div>
+        `;
+        rankingList.appendChild(DataMessage);
+      });
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar documentos: ", error);
+      rankingList.innerHTML = "";
+      const errorMessage = document.createElement("li");
+      errorMessage.innerText = "Erro ao carregar o ranking.";
+      rankingList.appendChild(errorMessage);
+    });
 }
 
 // --- Nickname Functions ---
@@ -218,9 +236,12 @@ function idGenerator() {
 function formatTime(totalMilliseconds) {
   const minutes = Math.floor(totalMilliseconds / 600000);
   const seconds = Math.floor((totalMilliseconds / 1000) % 60);
-  const centiseconds = Math.floor((totalMilliseconds % 1000) / 10 );
+  const centiseconds = Math.floor((totalMilliseconds % 1000) / 10);
 
-  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}:${String(centiseconds).padStart(2, "0")}`;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+    2,
+    "0"
+  )}:${String(centiseconds).padStart(2, "0")}`;
 }
 
 // --- Iniciando o jogo ---
@@ -231,7 +252,7 @@ function init() {
 // --- Resetando o jogo ---
 function reset() {
   isFinished = false;
-  totalMatches = 0; // Precisa mudar para 0
+  totalMatches = 7; // Precisa mudar para 0
   document.querySelector(".game").innerHTML = "";
   addCards();
 }
