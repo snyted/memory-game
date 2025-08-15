@@ -19,16 +19,19 @@
     <div class="container">
       <h2>JOGO DA MEMÓRIA</h2>
       <div class="game"></div>
-      <button class="reset" onclick="reset()">
-        REINICIAR
-      </button>
+      <button class="reset" onclick="reset()">REINICIAR</button>
     </div>
 
     <div class="nickname-container">
       <div class="nickname-content">
         <p class="n-text">Parabéns, você concluiu!</p>
         <span id="displayFinalTime" class="n-text">00:35</span>
-        <input type="text" placeholder="Insira um nome" id="nicknameInput" maxlength="10"/>
+        <input
+          type="text"
+          placeholder="Insira um nome"
+          id="nicknameInput"
+          maxlength="10"
+        />
         <button class="confirm-btn">Confirmar</button>
         <button class="skip-btn">Pular</button>
       </div>
@@ -84,7 +87,9 @@
       </div>
     </div>
 
-    <script type="module" src="firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="firebase.js"></script>
     <script defer src="./src/scripts/engine.js"></script>
   </body>
 </html>

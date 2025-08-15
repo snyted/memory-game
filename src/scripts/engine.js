@@ -33,8 +33,8 @@ const emojis = [
 let openCards = [];
 let playersData = [];
 const totalMatchesToWin = emojis.length / 2;
-let totalSeconds = 0;
-let totalMatches = 7;
+let totalMilliseconds = 0;
+let totalMatches = 0;
 let timerInterval;
 let nickname;
 
@@ -98,14 +98,14 @@ function handleClick() {
 
 function startTimer() {
   isStarted = true;
-  totalSeconds = 0;
+  totalMilliseconds = 0;
 
   clearInterval(timerInterval);
 
   timerInterval = setInterval(() => {
-    totalSeconds++;
-    timerEl.textContent = formatTime(totalSeconds);
-  }, 1000);
+    totalMilliseconds += 10;
+    timerEl.textContent = formatTime(totalMilliseconds);
+  }, 10);
 }
 
 function stopTimer() {
@@ -129,8 +129,8 @@ function rankingData(nicknameWrited) {
   playersData.push({
     // Adiciona no array de objetos as infos atuais do player
     nick: `${nicknameWrited ? nicknameWrited : idGenerator(nickname)}`,
-    time: `${formatTime(totalSeconds)}`,
-    totalSeconds: totalSeconds,
+    time: `${formatTime(totalMilliseconds)}`,
+    totalMilliseconds: totalMilliseconds,
   });
 
   displayRanking();
@@ -207,13 +207,12 @@ function idGenerator() {
   return result;
 }
 
-function formatTime(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
+function formatTime(totalMilliseconds) {
+  const minutes = Math.floor(totalMilliseconds / 600000);
+  const seconds = Math.floor((totalMilliseconds / 1000) % 60);
+  const centiseconds = Math.floor((totalMilliseconds % 1000) / 10 );
 
-  return `${String(minutes).padStart(2, "0")}:${String(
-    remainingSeconds
-  ).padStart(2, "0")}`;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}:${String(centiseconds).padStart(2, "0")}`;
 }
 
 // --- Iniciando o jogo ---
@@ -224,7 +223,7 @@ function init() {
 // --- Resetando o jogo ---
 function reset() {
   isFinished = false;
-  totalMatches = 7;
+  totalMatches = 0; // Precisa mudar para 0
   document.querySelector(".game").innerHTML = "";
   addCards();
 }
