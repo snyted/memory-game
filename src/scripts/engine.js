@@ -239,7 +239,7 @@ function idGenerator() {
 }
 
 function formatTime(totalMilliseconds) {
-  const minutes = Math.floor(totalMilliseconds / 600000);
+  const minutes = Math.floor(totalMilliseconds / 60000);
   const seconds = Math.floor((totalMilliseconds / 1000) % 60);
   const centiseconds = Math.floor((totalMilliseconds % 1000) / 10);
 
