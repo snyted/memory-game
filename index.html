@@ -1,113 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
-    <title>Jogo da Memória — Ranking de tempos &amp; desafio rápido</title>
-    <meta name="description" content="Jogue Jogo da Memória — desafie seus tempos, registre seu nickname e veja o ranking. Game simples para treinar memória com ranking salvo no banco de dados." />
-    <meta name="author" content="Memory Game" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#000000" />
-
-    <link rel="canonical" href="https://github.com/snyted/memory-game" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Jogo da Memoria" />
-    <meta property="og:title" content="Jogo da Memória — Ranking de tempos" />
-    <meta property="og:description" content="Jogue Jogo da Memória — registre seus tempos e compare no ranking. Uma jogatina rápida para treinar sua memória." />
-    <meta property="og:url" content="https://github.com/snyted/memory-game" />
-    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/4/45/Memory_game.jpg" />
-    <meta property="og:image:alt" content="Jogo da Memória — com ranking!" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jogo da Memória — Ranking de tempos" />
-    <meta name="twitter:description" content="Jogue, registre seu tempo e compare no ranking. Game web simples." />
-    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/4/45/Memory_game.jpg" />
-
-    <!-- CSS principal preload -->
-    <link rel="preload" href="./src/styles/main.css" as="style" onload="this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="./src/styles/main.css" /></noscript>
-
-    <!-- Normalize e componentes -->
+    <!-- Normalize.css -->
     <link rel="stylesheet" href="./src/styles/reset.css" />
+    <!-- Modals/Parts -->
     <link rel="stylesheet" href="./src/styles/ranking.css" />
     <link rel="stylesheet" href="./src/styles/nickname.css" />
-
-    <!-- Manifest (opcional PWA) -->
-    <link rel="manifest" href="/manifest.json" />
-
-    <!-- JSON-LD Rich Snippet SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebSite",
-          "@id": "https://github.com/snyted/memory-game#website",
-          "url": "https://github.com/snyted/memory-game",
-          "name": "Jogo da Memória Online",
-          "description": "Jogo da Memória online para treinar memória, concentração e raciocínio lógico com ranking de tempos.",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://github.com/snyted/memory-game?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "SoftwareApplication",
-          "name": "Jogo da Memória",
-          "url": "https://github.com/snyted/memory-game",
-          "applicationCategory": "Game",
-          "operatingSystem": "Web",
-          "description": "Jogo online simples de memória com ranking de tempos, emojis e cartas.",
-          "author": { "@type": "Person", "name": "snyted" },
-          "image": "https://upload.wikimedia.org/wikipedia/commons/4/45/Memory_game.jpg",
-          "gamePlatform": "Web",
-          "playMode": "SinglePlayer",
-          "interactionStatistic": {
-            "@type": "InteractionCounter",
-            "interactionType": "https://schema.org/PlayAction",
-            "userInteractionCount": 1250
-          }
-        },
-        {
-          "@type": "Game",
-          "name": "Jogo da Memória",
-          "description": "Jogo de cartas com emojis e ranking de tempos.",
-          "url": "https://github.com/snyted/memory-game",
-          "image": "https://upload.wikimedia.org/wikipedia/commons/4/45/Memory_game.jpg",
-          "interactionStatistic": {
-            "@type": "InteractionCounter",
-            "interactionType": "https://schema.org/PlayAction",
-            "userInteractionCount": 1250
-          }
-        }
-      ]
-    }
-    </script>
-
+    <!-- Principal -->
+    <link rel="stylesheet" href="./src/styles/main.css" />
+    <title>Jogo da memória</title>
   </head>
   <body>
-    <div class="timer-display" aria-hidden="false"><span id="timer">00:00</span></div>
-
-    <main id="main-content" class="container" role="main">
-      <header>
-        <h1>JOGO DA MEMÓRIA</h1>
-      </header>
-
-      <section class="game-area">
-        <div class="game" aria-label="Área do jogo, cartas" role="region"></div>
-        <button class="reset" onclick="reset()" aria-label="Reiniciar jogo">REINICIAR</button>
-      </section>
-    </main>
-
-    <div class="nickname-container" aria-hidden="true" aria-live="polite">
+    <div class="timer-display"><span id="timer">00:00</span></div>
+    <div class="container">
+      <h2>JOGO DA MEMÓRIA</h2>
+      <div class="game"></div>
+      <button class="reset" onclick="reset()">REINICIAR</button>
+    </div>
+    <div class="nickname-container">
       <div class="nickname-content">
         <p class="n-text">Parabéns, você concluiu!</p>
         <span id="displayFinalTime" class="n-text">00:35</span>
@@ -116,21 +29,17 @@
           placeholder="Insira um nome"
           id="nicknameInput"
           maxlength="10"
-          aria-label="Digite seu nickname"
         />
-        <button class="confirm-btn" aria-label="Confirmar nickname">Confirmar</button>
-        <button class="skip-btn" aria-label="Pular registro do nickname">Pular</button>
+        <button class="confirm-btn">Confirmar</button>
+        <button class="skip-btn">Pular</button>
       </div>
     </div>
-
     <div id="openRankingSvg" class="ranking-svg-container">
       <svg
         class="ranking-icon"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-label="Abrir ranking de tempos"
       >
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g
@@ -165,21 +74,14 @@
         </g>
       </svg>
     </div>
-
-    <div class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal">
       <div class="modal-content">
-        <button class="x-close-button" aria-label="Fechar">&times;</button>
+        <span class="x-close-button">&times;</span>
         <h3 class="modal-title">🏆 Ranking de Tempos 🏆</h3>
-        <ul id="rankingList" class="ranking-list" aria-live="polite"></ul>
-        <button class="reset close-button" aria-label="Fechar modal">Fechar</button>
+        <ul id="rankingList" class="ranking-list"></ul>
+        <button class="reset close-button">Fechar</button>
       </div>
     </div>
-
-    <noscript>
-      <div class="no-js-warning">Este jogo precisa de JavaScript para funcionar corretamente. Ative o JavaScript e recarregue a página.</div>
-    </noscript>
-
-    <!-- Firebase compat libs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
     <script src="./src/scripts/firebase.js"></script>
