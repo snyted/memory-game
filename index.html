@@ -4,76 +4,111 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!-- Normalize.css -->
+
+    <title>Jogo da Memória Online Gratuito | Treine o Cérebro e Dispute no Ranking de Tempos</title>
+    <meta name="description" content="Jogue Jogo da Memória online e gratuito para treinar seu cérebro. Memorize, encontre os pares e entre para o ranking de tempos. Uma jogatina rápida e divertida para todas as idades. Jogue agora!" />
+    <meta name="author" content="Memory Game" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000000" />
+    
+    <link rel="canonical" href="https://snyted.github.io/memory-game" />
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preload" href="./src/styles/main.css" as="style" />
+    <link rel="preload" href="./src/scripts/firebase.js" as="script" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jogo da Memória" />
+    <meta property="og:title" content="Jogo da Memória Online Gratuito - Dispute no Ranking" />
+    <meta property="og:description" content="Jogue o Jogo da Memória, registre seu tempo e suba no ranking! Um desafio rápido para testar sua agilidade mental." />
+    <meta property="og:url" content="https://snyted.github.io/memory-game" />
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/4/45/Memory_game.jpg" />
+    <meta property="og:image:alt" content="Jogo da Memória — com ranking!" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jogo da Memória - Ranking de Tempos" />
+    <meta name="twitter:description" content="Desafie sua memória e agilidade. Jogue Jogo da Memória, entre no ranking e compare seu tempo com amigos!" />
+    <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/4/45/Memory_game.jpg" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Jogo da Memória Online",
+      "url": "https://snyted.github.io/memory-game",
+      "applicationCategory": "Game",
+      "operatingSystem": "Web",
+      "description": "Jogo da Memória online e gratuito para exercitar o cérebro. Registre seu tempo e dispute no ranking de tempos.",
+      "author": { "@type": "Person", "name": "snyted" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "1"
+      }
+    }
+    </script>
+
+    <style>
+      .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+      }
+    </style>
+    
     <link rel="stylesheet" href="./src/styles/reset.css" />
-    <!-- Modals/Parts -->
     <link rel="stylesheet" href="./src/styles/ranking.css" />
     <link rel="stylesheet" href="./src/styles/nickname.css" />
-    <!-- Principal -->
     <link rel="stylesheet" href="./src/styles/main.css" />
-    <title>Jogo da memória</title>
   </head>
   <body>
+    <div class="sr-only">
+        <h1>Jogo da Memória Online e Gratuito</h1>
+        <p>Jogue o melhor Jogo da Memória online grátis. Nosso jogo é perfeito para exercitar a mente, melhorar a concentração e desafiar sua memória de forma divertida. Conclua o jogo no menor tempo possível e veja seu nome no ranking de tempos. O Jogo da Memória é uma excelente ferramenta para o treino do cérebro, ideal para crianças e adultos. Desafie-se e descubra se você pode alcançar o topo do ranking global. Divirta-se e aprimore suas habilidades de memorização hoje mesmo!</p>
+    </div>
+
     <div class="timer-display"><span id="timer">00:00</span></div>
+
     <div class="container">
       <h2>JOGO DA MEMÓRIA</h2>
       <div class="game"></div>
       <button class="reset" onclick="reset()">REINICIAR</button>
     </div>
+
     <div class="nickname-container">
       <div class="nickname-content">
         <p class="n-text">Parabéns, você concluiu!</p>
         <span id="displayFinalTime" class="n-text">00:35</span>
-        <input
-          type="text"
-          placeholder="Insira um nome"
-          id="nicknameInput"
-          maxlength="10"
-        />
+        <input type="text" placeholder="Insira um nome" id="nicknameInput" maxlength="10" />
         <button class="confirm-btn">Confirmar</button>
         <button class="skip-btn">Pular</button>
       </div>
     </div>
+
     <div id="openRankingSvg" class="ranking-svg-container">
-      <svg
-        class="ranking-icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg class="ranking-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-        <g
-          id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        ></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-          <path
-            d="M16 22V13C16 11.5858 16 10.8787 15.5607 10.4393C15.1213 10 14.4142 10 13 10H11C9.58579 10 8.87868 10 8.43934 10.4393C8 10.8787 8 11.5858 8 13M8 22V17"
-            stroke="#5D4037"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          ></path>
-          <path
-            d="M8 22C8 20.5858 8 19.8787 7.56066 19.4393C7.12132 19 6.41421 19 5 19C3.58579 19 2.87868 19 2.43934 19.4393C2 19.8787 2 20.5858 2 22"
-            stroke="#5D4037"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          ></path>
-          <path
-            d="M22 22V19C22 17.5858 22 16.8787 21.5607 16.4393C21.1213 16 20.4142 16 19 16C17.5858 16 16.8787 16 16.4393 16.4393C16 16.8787 16 17.5858 16 19V22"
-            stroke="#5D4037"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          ></path>
-          <path
-            d="M11.1459 3.02251C11.5259 2.34084 11.7159 2 12 2C12.2841 2 12.4741 2.34084 12.8541 3.02251L12.9524 3.19887C13.0603 3.39258 13.1143 3.48944 13.1985 3.55334C13.2827 3.61725 13.3875 3.64097 13.5972 3.68841L13.7881 3.73161C14.526 3.89857 14.895 3.98205 14.9828 4.26432C15.0706 4.54659 14.819 4.84072 14.316 5.42898L14.1858 5.58117C14.0429 5.74833 13.9714 5.83191 13.9392 5.93531C13.9071 6.03872 13.9179 6.15023 13.9395 6.37327L13.9592 6.57632C14.0352 7.36118 14.0733 7.75361 13.8435 7.92807C13.6136 8.10252 13.2682 7.94346 12.5773 7.62535L12.3986 7.54305C12.2022 7.45265 12.1041 7.40745 12 7.40745C11.8959 7.40745 11.7978 7.45265 11.6014 7.54305L11.4227 7.62535C10.7318 7.94346 10.3864 8.10252 10.1565 7.92807C9.92674 7.75361 9.96476 7.36118 10.0408 6.57632L10.0605 6.37327C10.0821 6.15023 10.0929 6.03872 10.0608 5.93531C10.0286 5.83191 9.95713 5.74833 9.81418 5.58117L9.68403 5.42898C9.18097 4.84072 8.92945 4.54659 9.01723 4.26432C9.10501 3.98205 9.47396 3.89857 10.2119 3.73161L10.4028 3.68841C10.6125 3.64097 10.7173 3.61725 10.8015 3.55334C10.8857 3.48944 10.9397 3.39258 11.0476 3.19887L11.1459 3.02251Z"
-            stroke="#5D4037"
-            stroke-width="1.5"
-          ></path>
+          <path d="M16 22V13C16 11.5858 16 10.8787 15.5607 10.4393C15.1213 10 14.4142 10 13 10H11C9.58579 10 8.87868 10 8.43934 10.4393C8 10.8787 8 11.5858 8 13M8 22V17" stroke="#5D4037" stroke-width="1.5" stroke-linecap="round"></path>
+          <path d="M8 22C8 20.5858 8 19.8787 7.56066 19.4393C7.12132 19 6.41421 19 5 19C3.58579 19 2.87868 19 2.43934 19.4393C2 19.8787 2 20.5858 2 22" stroke="#5D4037" stroke-width="1.5" stroke-linecap="round"></path>
+          <path d="M22 22V19C22 17.5858 22 16.8787 21.5607 16.4393C21.1213 16 20.4142 16 19 16C17.5858 16 16.8787 16 16.4393 16.4393C16 16.8787 16 17.5858 16 19V22" stroke="#5D4037" stroke-width="1.5" stroke-linecap="round"></path>
+          <path d="M11.1459 3.02251C11.5259 2.34084 11.7159 2 12 2C12.2841 2 12.4741 2.34084 12.8541 3.02251L12.9524 3.19887C13.0603 3.39258 13.1143 3.48944 13.1985 3.55334C13.2827 3.61725 13.3875 3.64097 13.5972 3.68841L13.7881 3.73161C14.526 3.89857 14.895 3.98205 14.9828 4.26432C15.0706 4.54659 14.819 4.84072 14.316 5.42898L14.1858 5.58117C14.0429 5.74833 13.9714 5.83191 13.9392 5.93531C13.9071 6.03872 13.9179 6.15023 13.9395 6.37327L13.9592 6.57632C14.0352 7.36118 14.0733 7.75361 13.8435 7.92807C13.6136 8.10252 13.2682 7.94346 12.5773 7.62535L12.3986 7.54305C12.2022 7.45265 12.1041 7.40745 12 7.40745C11.8959 7.40745 11.7978 7.45265 11.6014 7.54305L11.4227 7.62535C10.7318 7.94346 10.3864 8.10252 10.1565 7.92807C9.92674 7.75361 9.96476 7.36118 10.0408 6.57632L10.0605 6.37327C10.0821 6.15023 10.0929 6.03872 10.0608 5.93531C10.0286 5.83191 9.95713 5.74833 9.81418 5.58117L9.68403 5.42898C9.18097 4.84072 8.92945 4.54659 9.01723 4.26432C9.10501 3.98205 9.47396 3.89857 10.2119 3.73161L10.4028 3.68841C10.6125 3.64097 10.7173 3.61725 10.8015 3.55334C10.8857 3.48944 10.9397 3.39258 11.0476 3.19887L11.1459 3.02251Z" stroke="#5D4037" stroke-width="1.5"></path>
         </g>
       </svg>
     </div>
+
     <div class="modal">
       <div class="modal-content">
         <span class="x-close-button">&times;</span>
@@ -82,6 +117,7 @@
         <button class="reset close-button">Fechar</button>
       </div>
     </div>
+
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
     <script src="./src/scripts/firebase.js"></script>
